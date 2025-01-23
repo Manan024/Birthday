@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ff99cc, #ffccff, #ffe6f7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            color: #fff;
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            margin: 0;
+            opacity: 0;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: fadeInOut 2s forwards;
+        }
+        .btn-group {
+            margin-top: 20px;
+            display: none;
+            cursor: pointer;
+        }
+        .btn {
+            background: green;
+            border: none;
+            padding: 10px 20px;
+            color: #ff6f61;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            cursor: pointer;  /* Ensure pointer cursor */
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            background: #ff6f61;
+            color: #fff;
+            cursor: pointer;
+        }
+        .music-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        #cake {
+            display: none;
+            width: 150px;
+            margin-top: 20px;
+        }
+        #finalMessage {
+            display: none;
+            font-family: 'Pacifico', cursive;
+            font-size: 3rem;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="music-icon">🎵</div>
+    <div class="btn-group">
+        <button><i class="fas fa-music"></i> Play music</button>
+    </div>
+    <div class="container">
+        <h1 id="line1">Hey Madam Jii 🌟 It's your special day!</h1>
+        <h1 id="line2" style="animation-delay: 2s;">I have prepared something special for you...</h1>
+        <h1 id="line3" style="animation-delay: 4s;">Before you begin, I want to say you are the best girl I have ever met...</h1>
+
+        <div class="btn-group" id="buttonGroup">
+            <button class="btn" id="yesBtn">Yes, please show me!</button>
+        </div>
+
+        <h1 id="letsGo" style="display:none;">Let's goooo! 🎉</h1>
+        <img id="cake" src="https://tse1.mm.bing.net/th?id=OIP.J7nMn23XvGl6KqfprPP5dAHaHa&pid=Api&P=0&h=180" alt="Cake">
+
+        <div class="btn-group" id="cakeButtonGroup" style="display:none;">
+            <button class="btn" id="cutCakeBtn">Cut Me!</button>
+        </div>
+
+        <h1 id="finalMessage">Happy Birthday to You!! 🎂🎉</h1>
+    </div>
+
+    <script>
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+        const buttonGroup = document.getElementById('buttonGroup');
+        const letsGo = document.getElementById('letsGo');
+        const cake = document.getElementById('cake');
+        const cakeButtonGroup = document.getElementById('cakeButtonGroup');
+        const finalMessage = document.getElementById('finalMessage');
+
+        // Animation timings for text
+
+        setTimeout(() => {
+            line1.style.opacity = 1;
+            line1.style.color = 'black';
+            setTimeout(() => line1.style.opacity = 0, 2000);
+        }, 0);
+        
+        setTimeout(() => {
+            line2.style.opacity = 1;
+            line2.style.color = 'black';
+            setTimeout(() => line2.style.opacity = 0, 2000);
+        }, 2000);
+        
+        setTimeout(() => {
+            line3.style.opacity = 1;
+            line3.style.color = 'black';
+            setTimeout(() => {
+                line3.style.opacity = 0;
+                buttonGroup.style.display = 'block';  // Show the button for 2 seconds
+                setTimeout(() => {
+                    buttonGroup.style.display = 'none';  // Hide the button after 2 seconds
+                    cake.style.display = 'block';  // Show the cake
+                    cakeButtonGroup.style.display = 'block';  // Show the cake button
+                }, 2000);  // Button stays visible for 2 seconds
+            }, 2000);
+        }, 4000);
+        
+        
+
+        // Handle button click
+        document.getElementById('yesBtn').addEventListener('click', () => {
+            buttonGroup.style.display = 'none';
+            letsGo.style.display = 'block';
+            setTimeout(() => {
+                letsGo.style.display = 'none';
+                cake.style.display = 'block';
+                cakeButtonGroup.style.display = 'block';
+            }, 1000);
+        });
+
+        // Handle cake button click
+        document.getElementById('cutCakeBtn').addEventListener('click', () => {
+            cakeButtonGroup.style.display = 'none';
+            cake.style.display = 'none';
+            finalMessage.style.display = 'block';
+        });
+
+        // Play music when clicking the music icon
+        const musicIcon = document.querySelector('.music-icon');
+        const audio = new Audio('./demo.mp3');
+        musicIcon.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        });
+    </script>
+</body>
+</html>
